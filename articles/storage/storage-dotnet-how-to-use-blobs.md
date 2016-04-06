@@ -1,6 +1,6 @@
 <properties
-	pageTitle="How to use Blob storage from .NET | Microsoft Azure"
-	description="Learn about Azure Blob storage, and how to create a container and to upload, download, list, and delete blob content."
+	pageTitle="Get started with Azure Blob storage using .NET | Microsoft Azure"
+	description="Store file data in the cloud with Azure Blob storage (object storage). Get started with simple Blob storage operations, including creating a container and uploading, downloading, listing, and deleting blob content."
 	services="storage"
 	documentationCenter=".net"
 	authors="tamram"
@@ -13,19 +13,31 @@
 	ms.tgt_pltfrm="na"
 	ms.devlang="dotnet"
 	ms.topic="hero-article"
-	ms.date="12/01/2015"
+	ms.date="04/01/2016"
 	ms.author="tamram"/>
 
 
-# How to use Blob storage from .NET
+# Get started with Azure Blob storage using .NET
 
 [AZURE.INCLUDE [storage-selector-blob-include](../../includes/storage-selector-blob-include.md)]
 
 ## Overview
 
-This guide will demonstrate how to perform common scenarios using the
-Azure Blob storage service. The samples are written in C\# and
-use the Azure Storage Client Library for .NET. The Storage Client Library is an SDK that simplifies interacting with Blob Storage REST API's. The scenarios covered in this guide include **uploading**, **listing**, **downloading**, and **deleting** blobs and should take you about an hour to complete. If you want to watch a Getting Started Video see [Introduction To Azure Storage in five minutes](https://azure.microsoft.com/documentation/videos/azure-storage-5-minute-overview/) or you can read [Getting started with Azure Storage in five minutes](storage-getting-started-guide.md).
+Azure Blob storage is a service that stores file data in the cloud. Blob storage can store any type of text or binary data, such as a document, media file, or application installer. Blob storage is also referred to as object storage.
+
+### About this tutorial
+
+This tutorial shows how to write .NET code for some common scenarios using Azure Blob storage. Scenarios covered include uploading, listing, downloading, and deleting blobs. 
+
+**Estimated time to complete:** 45 minutes
+
+**Prerequisities:**
+
+- [Microsoft Visual Studio](https://www.visualstudio.com/en-us/visual-studio-homepage-vs.aspx)
+- [Azure Storage Client Library for .NET](https://www.nuget.org/packages/WindowsAzure.Storage/)
+- [Azure Configuration Manager for .NET](https://www.nuget.org/packages/Microsoft.WindowsAzure.ConfigurationManager/)
+- An [Azure storage account](storage-create-storage-account.md#create-a-storage-account).
+
 
 [AZURE.INCLUDE [storage-dotnet-client-library-version-include](../../includes/storage-dotnet-client-library-version-include.md)]
 
@@ -33,31 +45,26 @@ use the Azure Storage Client Library for .NET. The Storage Client Library is an 
 
 [AZURE.INCLUDE [storage-create-account-include](../../includes/storage-create-account-include.md)]
 
-[AZURE.INCLUDE [storage-configure-connection-string-include](../../includes/storage-configure-connection-string-include.md)]
+[AZURE.INCLUDE [storage-development-environment-include](../../includes/storage-development-environment-include.md)]
 
-## Programmatically access Blob storage
+### Add namespace declarations
 
-[AZURE.INCLUDE [storage-dotnet-obtain-assembly](../../includes/storage-dotnet-obtain-assembly.md)]
+Add the following `using` statements to the top of the `program.cs` file:
 
-### Namespace declarations
-Add the following namespace declarations to the top of any C\# file
-in which you wish to programmatically access Azure Storage:
+	using Microsoft.Azure; // Namespace for CloudConfigurationManager 
+	using Microsoft.WindowsAzure.Storage; // Namespace for CloudStorageAccount
+    using Microsoft.WindowsAzure.Storage.Auth; // Namespace for authentication types
+    using Microsoft.WindowsAzure.Storage.Blob; // Namespace for Blob storage types
 
-    using Microsoft.WindowsAzure;
-    using Microsoft.WindowsAzure.Storage;
-    using Microsoft.WindowsAzure.Storage.Auth;
-    using Microsoft.WindowsAzure.Storage.Blob;
+[AZURE.INCLUDE [storage-cloud-configuration-manager-include](../../includes/storage-cloud-configuration-manager-include.md)]
 
-Make sure you reference the `Microsoft.WindowsAzure.Storage.dll` assembly.
+### Create the Blob service client
 
-[AZURE.INCLUDE [storage-dotnet-retrieve-conn-string](../../includes/storage-dotnet-retrieve-conn-string.md)]
-
-A **CloudBlobClient** type allows you to retrieve objects that represent
-containers and blobs stored within the Blob Storage Service. The
-following code creates a **CloudBlobClient** object using the storage
-account object we retrieved above:
+The **CloudBlobClient** class enables you to retrieve objects that represent containers and blobs stored in Blob storage. Add the following code to the Main() method:
 
     CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+
+Now you are ready to write code that reads data from and writes data to Blob storage.
 
 ## Create a container
 
@@ -85,8 +92,7 @@ to everyone, you can set the container to be public using the following
 code:
 
     container.SetPermissions(
-        new BlobContainerPermissions { PublicAccess =
- 	    BlobContainerPublicAccessType.Blob });
+        new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Blob });
 
 Anyone on the Internet can see blobs in a public container, but you can
 modify or delete them only if you have the appropriate access key.
@@ -377,8 +383,8 @@ to learn more.
 - [Get started with Queue storage for .NET](storage-dotnet-how-to-use-queues.md)
 - [Get started with File storage for .NET](storage-dotnet-how-to-use-files.md)
 - [Transfer data with the AzCopy command-line utility](storage-use-azcopy)
-- [Use SQL Database to store relational data](../sql-database/articles/sql-database-dotnet-how-to-use.md)
 - [How to use Azure blob storage with the WebJobs SDK](../app-service-web/websites-dotnet-webjobs-sdk-storage-blobs-how-to.md)
+- [Using SQL Database from .NET (C#)](../sql-database/sql-database-dotnet-how-to-use.md)
 
   [Blob5]: ./media/storage-dotnet-how-to-use-blobs/blob5.png
   [Blob6]: ./media/storage-dotnet-how-to-use-blobs/blob6.png

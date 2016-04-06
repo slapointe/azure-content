@@ -1,7 +1,7 @@
 <properties 
-	pageTitle="SQL query on a DocumentDB, a NoSQL database | Microsoft Azure" 
-	description="Learn how to use SQL query statements to query DocumentDB, a NoSQL database. As a JSON query language, SQL queries can be used for big data analytics." 
-	keywords="sql query, sql queries, sql syntax, json query language, database concepts and sql queries"
+	pageTitle="SQL syntax and SQL query for DocumentDB | Microsoft Azure" 
+	description="Learn about SQL syntax, database concepts and SQL queries for DocumentDB, a NoSQL database. SQL can used as a JSON query language in DocumentDB." 
+	keywords="sql syntax,sql query, sql queries, json query language, database concepts and sql queries"
 	services="documentdb" 
 	documentationCenter="" 
 	authors="arramac" 
@@ -14,15 +14,15 @@
 	ms.tgt_pltfrm="na" 
 	ms.devlang="na" 
 	ms.topic="article" 
-	ms.date="12/14/2015" 
+	ms.date="03/30/2016" 
 	ms.author="arramac"/>
 
-# SQL query in DocumentDB
+# SQL query and SQL syntax in DocumentDB
 Microsoft Azure DocumentDB supports querying documents using SQL (Structured Query Language) as a JSON query language. DocumentDB is truly schema-free. By virtue of its commitment to the JSON data model directly within the database engine, it provides automatic indexing of JSON documents without requiring explicit schema or creation of secondary indexes. 
 
 While designing the query language for DocumentDB we had two goals in mind:
 
--	Instead of inventing a new query language, we wanted to support SQL. SQL is one of the most familiar and popular query languages. DocumentDB SQL provides a formal programming model for rich queries over JSON documents.
+-	Instead of inventing a new JSON query language, we wanted to support SQL. SQL is one of the most familiar and popular query languages. DocumentDB SQL provides a formal programming model for rich queries over JSON documents.
 -	As a JSON document database capable of executing JavaScript directly in the database engine, we wanted to use JavaScript's programming model as the foundation for our query language. The DocumentDB SQL is rooted in JavaScript's type system, expression evaluation, and function invocation. This in-turn provides a natural programming model for relational projections, hierarchical navigation across JSON documents, self joins, spatial queries, and invocation of user defined functions (UDFs) written entirely in JavaScript, among other features. 
 
 We believe that these capabilities are key to reducing the friction between the application and the database and are crucial for developer productivity.
@@ -1225,7 +1225,7 @@ Below is an example of how a UDF can be registered at the DocumentDB database, s
 	   };
 	   
 	   UserDefinedFunction createdUdf = client.CreateUserDefinedFunctionAsync(
-	       collectionSelfLink/* link of the parent collection*/, 
+	       UriFactory.CreateDocumentCollectionUri("testdb", "families"), 
 	       regexMatchUdf).Result;  
                                                                              
 The preceding example creates a UDF whose name is `REGEX_MATCH`. It accepts two JSON string values `input` and `pattern` and checks if the first matches the pattern specified in the second using JavaScript's string.match() function.
@@ -1287,7 +1287,9 @@ To expand on the power of UDFs, let's look at another example with conditional l
 	                }"
             };
 
-            UserDefinedFunction createdUdf = await client.CreateUserDefinedFunctionAsync(collection.SelfLink, seaLevelUdf);
+            UserDefinedFunction createdUdf = await client.CreateUserDefinedFunctionAsync(
+                UriFactory.CreateDocumentCollectionUri("testdb", "families"), 
+                seaLevelUdf);
 	
 	
 Below is an example that exercises the UDF.
@@ -1765,7 +1767,7 @@ LINQ is a .NET programming model that expresses computation as queries on stream
 
 The picture below shows the architecture of supporting LINQ queries using DocumentDB.  Using the DocumentDB client, developers can create an **IQueryable** object that directly queries the DocumentDB query provider, which then translates the LINQ query into a DocumentDB query. The query is then passed to the DocumentDB server to retrieve a set of results in JSON format. The returned results are deserialized into a stream of .NET objects on the client side.
 
-![Architecture of supporting LINQ queries using DocumentDB][1]
+![Architecture of supporting LINQ queries using DocumentDB - SQL syntax, JSON query language, database concepts and SQL queries][1]
  
 
 
@@ -2320,7 +2322,7 @@ The next sample shows joins, expressed through LINQ SelectMany.
 
 The .NET client automatically iterates through all the pages of query results in the foreach blocks as shown above. The query options introduced in the REST API section are also available in the .NET SDK using the `FeedOptions` and `FeedResponse` classes in the CreateDocumentQuery method. The number of pages can be controlled using the `MaxItemCount` setting. 
 
-Developers can also explicitly control paging by creating `IDocumentQueryable` using the `IQueryable` object, then by reading the` ResponseContinuationToken` values and passing them back as `RequestContinuationToken` in `FeedOptions`. `EnableScanInQuery` can be set to enable scans when the query cannot be supported by the configured indexing policy.
+You can also explicitly control paging by creating `IDocumentQueryable` using the `IQueryable` object, then by reading the` ResponseContinuationToken` values and passing them back as `RequestContinuationToken` in `FeedOptions`. `EnableScanInQuery` can be set to enable scans when the query cannot be supported by the configured indexing policy. For partitioned collections, you can use `PartitionKey` to run the query against a single partition (though DocumentDB can automatically extract this from the query text), and `EnableCrossPartitionQuery` to run queries that may need to be run against multiple partitions. 
 
 Refer to [DocumentDB .NET samples](https://github.com/Azure/azure-documentdb-net) for more samples containing queries. 
 

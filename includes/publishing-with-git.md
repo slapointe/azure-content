@@ -1,6 +1,6 @@
-[Azure App Service](http://go.microsoft.com/fwlink/?LinkId=529714) supports continuous deployment to Web Apps from source code control and repository tools like BitBucket, CodePlex, Dropbox, Git, GitHub, Mercurial, and TFS. You can use these tools to maintain the content and code for your application, and then quickly and easily push changes to your Azure web app when you want.
+[Azure App Service](http://go.microsoft.com/fwlink/?LinkId=529714) supports continuous deployment from source code control and repository tools like GitHub, BitBucket, and Visual Studio Team Services. You can use these tools to maintain the content and code for your app, and then quickly and easily push changes to your App Service app.
 
-In this article, you will learn how to use Git to publish directly from your local computer to Web Apps (in Azure, this method of publishing is called **Local Git**). You will also learn how to enable continuous deployment from repository sites like BitBucket, CodePlex, Dropbox, GitHub, or Mercurial. For information about using TFS for continuous deployment, see [Continuous delivery to Azure using Visual Studio Team Services].
+In this article, you will learn how to use Git to publish directly from your local computer to Web Apps (in Azure, this method of publishing is called **Local Git**). You will also learn how to enable continuous deployment from repository sites like BitBucket and GitHub. For information about using VSTS for continuous deployment, see [Continuous delivery to Azure using Visual Studio Team Services].
 
 > [AZURE.NOTE] Many of the Git commands described in this article are performed automatically when creating a web app using the [Azure Command-Line Tools for Mac and Linux](/develop/nodejs/how-to-guides/command-line-tools/).
 
@@ -185,8 +185,6 @@ The steps for pushing your Visual Studio solution to Web Apps is the same as in 
 	>[AZURE.NOTE] If you use GitHub, you can optionally generate a Visual Studio specific .gitignore file when you create your repository, which includes all the common temporary files, build results, etc. You can then customize it to suit your specific needs.
 
 -	Add the entire solution's directory tree to your repository, with the .sln file in the repository root.
-
--	In your Visual Studio solution, [enable NuGet Package Restore](http://docs.nuget.org/Consume/Package-Restore) to make Visual Studio automatically restore missing packages.
 
 Once you have set up your repository as described, and configured your web app in Azure for continuous publishing from one of the online Git repositories, you can develop your ASP.NET application locally in Visual Studio and continuously deploy your code simply by pushing your changes to your online Git repository.
 

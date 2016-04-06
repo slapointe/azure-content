@@ -1,4 +1,4 @@
-<properties 
+<properties
    pageTitle="Azure SQL Database General Limitations and Guidelines"
    description="This page describes some general limitations for Azure SQL Database as well as areas of interoperability and support."
    services="sql-database"
@@ -6,38 +6,32 @@
    authors="rothja"
    manager="jeffreyg"
    editor="monicar" />
-<tags 
+<tags
    ms.service="sql-database"
    ms.devlang="na"
    ms.topic="article"
    ms.tgt_pltfrm="na"
    ms.workload="data-management"
-   ms.date="11/16/2015"
+   ms.date="01/15/2016"
    ms.author="jroth" />
 
 # Azure SQL Database General Limitations and Guidelines
 
 This topic provides general limitations and guidelines for Azure SQL Database. For a complete understanding of quotas, resource management, and support, please see the [additional resources](#additional-guidelines) at the end of this topic.
 
-## Connectivity
+## Connectivity and authentication
 
- - Windows Authentication is not supported. See [Managing Databases and Logins in Azure SQL Database](sql-database-manage-logins.md). 
+  - Windows Authentication is not supported. See [Managing Databases and Logins in Azure SQL Database](sql-database-manage-logins.md). However, Azure Active Directory Authentication is supported with certain limitations. See [Connect to SQL Database with Azure Active Directory Authentication](sql-database-aad-authentication.md).
 
- - Microsoft Azure SQL Database supports tabular data stream (TDS) protocol client version 7.3 or later. 
+  - Microsoft Azure SQL Database supports tabular data stream (TDS) protocol client version 7.3 or later.
 
- - Only TCP/IP connections are allowed.
+  - Only TCP/IP connections are allowed.
 
- - The SQL Server 2008 SQL Server browser is not supported because Microsoft Azure SQL Database does not have dynamic ports, only port 1433.
+  - The SQL Server 2008 SQL Server browser is not supported because Microsoft Azure SQL Database does not have dynamic ports, only port 1433.
 
 ## SQL Server Agent/Jobs
 
 Microsoft Azure SQL Database does not support SQL Server Agent or jobs. You can, however, run SQL Server Agent on your on-premises SQL Server and connect to Microsoft Azure SQL Database.
-
-## Transactions
-
-Azure SQL Database does not support distributed transactions, which are transactions that affect several resources. For more information, see [Distributed Transactions (ADO.NET)](https://msdn.microsoft.com/library/ms254973.aspx). SQL Database may not preserve the uncommitted timestamp values of the current database (DBTS) across failovers.
-
-> [AZURE.NOTE] In certain situations, a transaction can be automatically promoted to a distributed transaction. For more information, see [System.Transactions Integration with SQL Server](https://msdn.microsoft.com/library/ms172070.aspx).
 
 ## SQL Server Collation Support
 
@@ -47,11 +41,11 @@ The default database collation used by Microsoft Azure SQL Database is **SQL_LAT
 
 Certain user names are not allowed for security reasons. You cannot use the following names:
 
- - **admin** 
- - **administrator** 
- - **guest** 
- - **root** 
- - **sa** 
+ - **admin**
+ - **administrator**
+ - **guest**
+ - **root**
+ - **sa**
 
 Names for all new objects must comply with the SQL Server rules for identifiers. For more information, see [Identifiers](https://msdn.microsoft.com/library/ms175874.aspx).
 

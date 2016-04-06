@@ -1,6 +1,6 @@
-<properties
-   pageTitle="Azure Data Catalog - What is Data Catalog"
-   description="Overview of Microsoft Azure Data Catalog, including its features and the problems it is designed to address. Azure Data Catalog provides capabilities that enable any user – from analysts to data scientists to developers – to register, discover, understand, and consume data sources."
+﻿<properties
+   pageTitle="What is Azure Data Catalog? | Microsoft Azure"
+   description="This article provides an overview of Microsoft Azure Data Catalog, including its features and the problems it is designed to address. Azure Data Catalog provides capabilities that enable any user – from analysts to data scientists to developers – to register, discover, understand, and consume data sources."
    services="data-catalog"
    documentationCenter=""
    authors="steelanddata"
@@ -10,10 +10,10 @@
 <tags
    ms.service="data-catalog"
    ms.devlang="NA"
-   ms.topic="article"
+   ms.topic="get-started-article"
    ms.tgt_pltfrm="NA"
    ms.workload="data-catalog"
-   ms.date="12/18/2015"
+   ms.date="03/31/2016"
    ms.author="maroche"/>
 
 # What is Azure Data Catalog?
@@ -62,30 +62,8 @@ The registration process involves three basic steps:
 2.	Select objects to register - the user selects the objects in the specified location that should be registered with **Azure Data Catalog**. This may be the full set of tables in all databases on the server, or a specifically selected subset of tables and views.
 3.	Complete registration - the user completes the process, and the data source registration tool extracts the structural metadata from the data source, and sends that metadata to the **Azure Data Catalog** cloud service.
 
-> [AZURE.NOTE] For preview, **Azure Data Catalog** currently supports the following data source and asset types:
+> [AZURE.NOTE] To view a list of the data source and asset types supported by **Azure Data Catalog**, see: [Azure Data Catalog supported data sources](data-catalog-dsr.md)
 
-- SQL Server Table
-- SQL Server View
-- Oracle Database Table
-- Oracle Database View
-- Teradata Table
-- Teradata View
-- SQL Server Analysis Services Multidimensional Dimension
-- SQL Server Analysis Services Multidimensional Measure
-- SQL Server Analysis Services Multidimensional KPI
-- SQL Server Analysis Services Tabular Table
-- SQL Server Reporting Services Report
-- Azure Storage Blob
-- Azure Storage Directory
-- HDFS File
-- HDFS Directory
-- Hive Table
-- Azure Data Lake Store File
-- Azure Data Lake Store Directory
-- MySQL Table
-- MySQL View
-
-Additional data sources and asset types will be added during the **Azure Data Catalog** preview.
 
 > [AZURE.IMPORTANT]Registering a data source in **Azure Data Catalog** does not copy the data from the data source, unless you select “Include Preview” in the data source registration tool. Registration copies data source metadata, not data. Examples of metadata include the names of tables and other data source objects, along with the names and data types of columns and other data source attributes. The metadata also includes the data source location, so that users who discover the data source using **Azure Data Catalog** can then connect to the data source. If you select “Include Preview” then the data source registration tool will also copy to **Azure Data Catalog** a small set of records that will be displayed to users who discover the data source in the **Azure Data Catalog** portal.
 
@@ -130,5 +108,3 @@ The ultimate goal of data discovery is to find the data that you need, and to us
 
 1.	For client applications that are directly supported by **Azure Data Catalog**, users can click on the **Open In** menu in the data source tile found in the portal. The client application will then launch with a connection to the selected data source.
 2.	For all client applications, users can use the connection information displayed in the properties pane for a selected data source. This information includes all details (such as server name, database name, and object name) required to connect to the data, and can be copied into the client tool's connection experience. If request access details have been provided for a data source, this information will be displayed next to the connection details.
-
-> [AZURE.NOTE] For the preview of Azure Data Catalog, only Microsoft Excel and SQL Server Reporting Services Report Manager will be directly supported and available in the **Open In** menu.  

@@ -13,7 +13,7 @@
 	ms.tgt_pltfrm="na"
 	ms.devlang="na"
 	ms.topic="article"
-	ms.date="10/27/2015"
+	ms.date="04/04/2016"
 	ms.author="jhubbard"/>
 
 
@@ -22,7 +22,7 @@ In this tutorial, you learn the fundamentals of Azure SQL Data Sync using the Az
 
 This tutorial assumes minimal prior experience with SQL Server and Azure SQL Database. In this tutorial, you create a hybrid (SQL Server and SQL Database instances) sync group fully configured and synchronizing on the schedule you set.
 
-> [AZURE.NOTE] The complete technical documentation set for Azure SQL Data Sync, formerly located on MSDN, is now a single .pdf you download [here](http://download.microsoft.com/download/4/E/3/4E394315-A4CB-4C59-9696-B25215A19CEF/SQL_Data_Sync_Preview.pdf).
+> [AZURE.NOTE] The complete technical documentation set for Azure SQL Data Sync, formerly located on MSDN, is available as a .pdf. Download it [here](http://download.microsoft.com/download/4/E/3/4E394315-A4CB-4C59-9696-B25215A19CEF/SQL_Data_Sync_Preview.pdf).
 
 ## Step 1: Connect to the Azure SQL Database
 
@@ -45,7 +45,7 @@ Skip to Step 4 if your sync group has only SQL Database instances.
 
 <a id="InstallRequiredSoftware"></a>
 ### Step 2a: Install the required software
-Be sure that you have the following installed on the computer you install the Client Agent.
+Be sure that you have the following installed on the computer where you install the Client Agent.
 
 - **.NET Framework 4.0**
 
@@ -53,11 +53,11 @@ Be sure that you have the following installed on the computer you install the Cl
 
 - **Microsoft SQL Server 2008 R2 SP1 System CLR Types (x86)**
 
- You can install the Microsoft SQL Server 2008 R2 SP1 System CLR Types (x86) from  [here](http://www.microsoft.com/download/en/details.aspx?id=26728)
+ Install the Microsoft SQL Server 2008 R2 SP1 System CLR Types (x86) from  [here](http://www.microsoft.com/download/en/details.aspx?id=26728)
 
 - **Microsoft SQL Server 2008 R2 SP1 Shared Management Objects (x86)**
 
- You can install the Microsoft SQL Server 2008 R2 SP1 Shared Management Objects (x86) from [here](http://www.microsoft.com/download/en/details.aspx?id=26728)
+ Install the Microsoft SQL Server 2008 R2 SP1 Shared Management Objects (x86) from [here](http://www.microsoft.com/download/en/details.aspx?id=26728)
 
 
 
@@ -116,10 +116,10 @@ To register a database with the agent, follow the instructions at [Register a SQ
 
 1. From the dropdown, select the SQL Database instance to serve as the sync group hub.
 2. Enter the credentials for this SQL Database instance - **HUB USERNAME** and **HUB PASSWORD**.
-3. Wait for SQL Data Sync to confirm the USERNAME and PASSWORD. A green check mark appears to the right of the PASSWORD when the credentials are confirmed.
+3. Wait for SQL Data Sync to confirm the USERNAME and PASSWORD. You will see a green check mark appear to the right of the PASSWORD when the credentials are confirmed.
 4. From the dropdown, select the **CONFLICT RESOLUTION** policy.
 
- **Hub Wins** - any change written to the hub database is written to the reference databases, overwriting changes in the same reference database record. Functionally, this means that the first change written to the hub is propagated to the other databases.
+ **Hub Wins** - any change written to the hub database write to the reference databases, overwriting changes in the same reference database record. Functionally, this means that the first change written to the hub propagates to the other databases.
 
 
  **Client Wins** - changes written to the hub are overwritten by changes in reference databases. Functionally, this means that the last change written to the hub is the one kept and propagated to the other databases.
@@ -155,7 +155,7 @@ Repeat this step for each additional database you want to add to the sync group.
 
 ## Step 5: Define the data to sync
 
-Azure SQL Data Sync allows you to select tables and columns to synchronize. If you also want to filter a column so that only rows with specific values (such as, Age>=65) are synchronized, use the SQL Data Sync portal at Azure and the documentation at Select the Tables, Columns, and Rows to Synchronize to define the data to sync.
+Azure SQL Data Sync allows you to select tables and columns to synchronize. If you also want to filter a column so that only rows with specific values (such as, Age>=65) synchronize, use the SQL Data Sync portal at Azure and the documentation at Select the Tables, Columns, and Rows to Synchronize to define the data to sync.
 
 1.	Return to the [Classic Portal](http://manage.windowsazure.com).
 2.	Click **SQL DATABASES**.
@@ -177,7 +177,7 @@ Azure SQL Data Sync allows you to select tables and columns to synchronize. If y
 ## Step 6: Configure your sync group
 
 You can always synchronize a sync group by clicking SYNC at the bottom of the Data Sync landing page.
-If you want a sync group to synchronize on a schedule, you configure the sync group.
+To synchronize on a schedule, you configure the sync group.
 
 1.	Return to the [Classic Portal](http://manage.windowsazure.com).
 2.	Click **SQL DATABASES**.

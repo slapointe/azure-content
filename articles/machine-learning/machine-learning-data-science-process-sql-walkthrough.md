@@ -13,7 +13,7 @@
 	ms.tgt_pltfrm="na"
 	ms.devlang="na"
 	ms.topic="article"
-	ms.date="10/27/2015" 
+	ms.date="02/08/2016"
 	ms.author="mohabib;fashah;bradsev"/>
 
 
@@ -74,7 +74,7 @@ In this tutorial we will demonstrate parallel bulk import of the data to a SQL S
 
 To set up your Azure Data Science environment:
 
-1. [Create a storage account](../storage-create-storage-account.md)
+1. [Create a storage account](../storage/storage-create-storage-account.md)
 
 2. [Create an Azure ML workspace](machine-learning-create-workspace.md)
 
@@ -619,7 +619,7 @@ To begin the modeling exercise, log in to your Azure Machine Learning workspace.
 
 2. Log in to [Azure Machine Learning Studio](https://studio.azureml.net).
 
-3. The Studio Home page provides a wealth of information, videos, tutorials, links to the Modules Reference, and other resources. Fore more information about Azure Machine Learning, consult the [Azure Machine Learning Documentation Center](http://azure.microsoft.com/documentation/services/machine-learning/).
+3. The Studio Home page provides a wealth of information, videos, tutorials, links to the Modules Reference, and other resources. Fore more information about Azure Machine Learning, consult the [Azure Machine Learning Documentation Center](https://azure.microsoft.com/documentation/services/machine-learning/).
 
 A typical training experiment consists of the following:
 
