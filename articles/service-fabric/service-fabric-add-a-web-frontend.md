@@ -13,11 +13,13 @@
    ms.topic="article"
    ms.tgt_pltfrm="NA"
    ms.workload="NA"
-   ms.date="11/21/2015"
+   ms.date="03/30/2016"
    ms.author="seanmck"/>
 
 
 # Build a web service front end for your application
+
+>[AZURE.WARNING] Due to the changes being made in ASP.NET Core RC2, this article is temporarily incorrect as the referenced project template has been removed from the SDK. This article will be updated when ASP.NET Core RC2 is released. In the interim, you can use the stateless Web API template, which is described in [Get started: Service Fabric Web API services with OWIN self-hosting](service-fabric-reliable-services-communication-webapi).
 
 By default, Azure Service Fabric services do not provide a public interface to the web. To expose your application's functionality to HTTP clients, you will need to create a web project to act as an entry point and then communicate from there to your individual services.
 
@@ -189,7 +191,7 @@ Our stateful service is now ready to receive traffic from other services. So all
 
     The first line of code is the key one. To create the ICounter proxy to the stateful service, you need to provide two pieces of information: a partition ID and the name of the service.
 
-    You can use partitioning to scale stateful services by breaking up their state into different buckets, based on a key that you define, such as a customer ID or postal code. In our trivial application, the stateful service only has one partition, so the key doesn't matter. Any key that you provide will lead to the same partition. To learn more about partitioning services, see [How to partition Service Fabric Reliable Services](service-fabric-concepts-partitioning).
+    You can use partitioning to scale stateful services by breaking up their state into different buckets, based on a key that you define, such as a customer ID or postal code. In our trivial application, the stateful service only has one partition, so the key doesn't matter. Any key that you provide will lead to the same partition. To learn more about partitioning services, see [How to partition Service Fabric Reliable Services](service-fabric-concepts-partitioning.md).
 
     The service name is a URI of the form fabric:/&lt;application_name&gt;/&lt;service_name&gt;.
 

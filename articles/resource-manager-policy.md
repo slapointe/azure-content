@@ -1,4 +1,4 @@
-﻿<properties
+<properties
 	pageTitle="Azure Resource Manager Policy | Microsoft Azure"
 	description="Describes how to use Azure Resource Manager Policy to prevent violations at different scopes like subscription, resource groups or individual resources."
 	services="azure-resource-manager"
@@ -13,7 +13,7 @@
 	ms.topic="article"
 	ms.tgt_pltfrm="na"
 	ms.workload="na"
-	ms.date="12/18/2015"
+	ms.date="02/26/2016"
 	ms.author="gauravbh;tomfitz"/>
 
 # Use Policy to manage resources and control access
@@ -69,7 +69,7 @@ Using policies, these scenarios can easily be achieved as described below.
 
 Policy definition is created using JSON. It consists of one or more
 conditions/logical operators which define the actions and an effect
-which tells what happens when the conditions are fulfilled.
+which tells what happens when the conditions are fulfilled. The schema is published at [http://schema.management.azure.com/schemas/2015-10-01-preview/policyDefinition.json](http://schema.management.azure.com/schemas/2015-10-01-preview/policyDefinition.json). 
 
 Basically, a policy contains the following:
 
@@ -88,7 +88,12 @@ event service log. For example, an administrator can create a policy which cause
         "effect" : "deny | audit"
       }
     }
+    
+## Policy Evaluation
 
+Policy will be evaluated when resource creation or template deployment happens using HTTP PUT. In case of template deployment, policy will be evaluated during the creation of each resource in the template. 
+
+Note: Resource types which do not support tags, kind, location are not evaluated by Policy, such as Microsoft.Resources/deployments. The support will be added at a future time. To avoid backward compatability issues, it is best practice to explicitly specify type when authoring policies. For example, a tag policy without specifying types will be applied for all types, so template deployment may fail if there is a nested resource that don't support tag when the resource type is added to evaluation at a future time. 
 
 ## Logical Operators
 
@@ -117,15 +122,45 @@ A condition evaluates whether a **field** or **source** meets certain criteria. 
 
 ## Fields and Sources
 
-Conditions are formed through the use of fields and sources. A field represents properties in the resource request payload. A source represents characteristics of the request itself. 
+Conditions are formed through the use of fields and sources. A field represents properties in the resource request payload that is used to describe the state of the resource. A source represents characteristics of the request itself. 
 
 The following fields and sources are supported:
 
-Fields: **name**, **kind**, **type**, **location**, **tags**, **tags.***.
+Fields: **name**, **kind**, **type**, **location**, **tags**, **tags.***, and **property alias**. 
 
 Sources: **action**. 
 
+Property alias is a name that can be used in policy defniniton to access the resource type specific properties, such as settings, and skus. It works across all api versions that the property exists. Aliases can be retrieved using the REST API below ( Powershell support will be added in the future):
+
+    GET /subscriptions/{id}/providers?$expand=resourceTypes/aliases&api-version=2015-11-01
+	
+The defintion of an alias looks like below. As you can see, a alias defines pathes in different api versions, even when there is a property name change. 
+
+    "aliases": [
+      {
+        "name": "Microsoft.Storage/storageAccounts/sku.name",
+        "paths": [
+          {
+            "path": "Properties.AccountType",
+            "apiVersions": [ "2015-06-15", "2015-05-01-preview" ]
+          }
+        ]
+      }
+    ]
+
+Currently, the supported aliases are:
+
+| Alias name | Description |
+| ---------- | ----------- |
+| {resourceType}/sku.name | Supported resource types are: Microsoft.Storage/storageAccounts,<br />Microsoft.Scheduler/jobcollections,<br />Microsoft.DocumentDB/databaseAccounts,<br />Microsoft.Cache/Redis,<br />Microsoft..CDN/profiles |
+| {resourceType}/sku.family | Supported resource type is Microsoft.Cache/Redis |
+| {resourceType}/sku.capacity | Supported resource type is Microsoft.Cache/Redis |
+| Microsoft.Cache/Redis/enableNonSslPort |  |
+| Microsoft.Cache/Redis/shardCount |  |
+
+
 To get more information about actions, see [RBAC - Built in Roles] (active-directory/role-based-access-built-in-roles.md). Currently, policy only works on PUT requests. 
+
 
 ## Policy Definition Examples
 
@@ -178,19 +213,19 @@ will be denied.
         "not" : {
           "anyOf" : [
             {
-              "source" : "action",
+              "field" : "type",
               "like" : "Microsoft.Resources/*"
             },
             {
-              "source" : "action",
+              "field" : "type",
               "like" : "Microsoft.Compute/*"
             },
             {
-              "source" : "action",
+              "field" : "type",
               "like" : "Microsoft.Storage/*"
             },
             {
-              "source" : "action",
+              "field" : "type",
               "like" : "Microsoft.Network/*"
             }
           ]
@@ -200,6 +235,35 @@ will be denied.
         "effect" : "deny"
       }
     }
+
+### Use Approved SKUs
+
+The below example shows the use of property alias to restrict SKUs. In the example below, only Standard_LRS and Standard_GRS is approved to use for storage accounts.
+
+    {
+      "if": {
+        "allOf": [
+          {
+            "field": "type",
+            "equals": "Microsoft.Storage/storageAccounts"
+          },
+          {
+            "not": {
+              "allof": [
+                {
+                  "field": "Microsoft.Storage/storageAccounts/sku.name",
+                  "in": ["Standard_LRS", "Standard_GRS"]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "then": {
+        "effect": "deny"
+      }
+    }
+    
 
 ### Naming Convention
 
@@ -281,8 +345,6 @@ With a request body similar to the following:
           }
         }
       },
-      "id":"/subscriptions/########-####-####-####-############/providers/Microsoft.Authorization/policyDefinitions/testdefinition",
-      "type":"Microsoft.Authorization/policyDefinitions",
       "name":"testdefinition"
     }
 
@@ -333,8 +395,6 @@ With a request body similar to the following:
         "policyDefinitionId":"/subscriptions/########/providers/Microsoft.Authorization/policyDefinitions/testdefinition",
         "scope":"/subscriptions/########-####-####-####-############"
       },
-      "id":"/subscriptions/########-####-####-####-############/providers/Microsoft.Authorization/policyAssignments/VMPolicyAssignment",
-      "type":"Microsoft.Authorization/policyAssignments",
       "name":"VMPolicyAssignment"
     }
 

@@ -13,7 +13,7 @@
 	ms.tgt_pltfrm="na" 
 	ms.devlang="na" 
 	ms.topic="article" 
-	ms.date="11/12/2015" 
+	ms.date="03/28/2016" 
 	ms.author="spelluru"/>
 
 # Move data from DB2 using Azure Data Factory
@@ -31,9 +31,14 @@ For Data Management Gateway to connect to the DB2 Database, you need to install 
 
 There are known issues reported by IBM on installing the IBM DB2 Data Server Driver on Windows 8, where additional installation steps are needed. For more information about the IBM DB2 Data Server Driver on Windows 8, see [http://www-01.ibm.com/support/docview.wss?uid=swg21618434](http://www-01.ibm.com/support/docview.wss?uid=swg21618434).
 
+> [AZURE.NOTE] See [Gateway Troubleshooting](data-factory-move-data-between-onprem-and-cloud.md#gateway-troubleshooting) for tips on troubleshooting connection/gateway related issues. 
+
+
 ## Sample: Copy data from DB2 to Azure Blob
 
-The sample below shows:
+This sample shows how to copy data from an on-premises DB2 database to an Azure Blob Storage. However, data can be copied **directly** to any of the sinks stated [here](data-factory-data-movement-activities.md#supported-data-stores) using the Copy Activity in Azure Data Factory.  
+ 
+The sample has the following data factory entities:
 
 1.	A linked service of type [OnPremisesDb2](data-factory-onprem-db2-connector.md#db2-linked-service-properties).
 2.	A linked service of type [AzureStorage](data-factory-azure-blob-connector.md#azure-storage-linked-service-properties). 
@@ -209,7 +214,7 @@ The pipeline contains a Copy Activity that is configured to use the above input 
 	}
 
 
-## DB2 Linked Service properties
+## DB2 linked service properties
 
 The following table provides description for JSON elements specific to DB2 linked service. 
 
@@ -218,16 +223,16 @@ The following table provides description for JSON elements specific to DB2 linke
 | type | The type property must be set to: **OnPremisesDB2** | Yes |
 | server | Name of the DB2 server. | Yes |
 | database | Name of the DB2 database. | Yes |
-| schema | Name of the schema in the database. | No |
+| schema | Name of the schema in the database. The schema name is case sensitive. | No |
 | authenticationType | Type of authentication used to connect to the DB2 database. Possible values are: Anonymous, Basic, and Windows. | Yes |
 | username | Specify user name if you are using Basic or Windows authentication. | No |
 | password | Specify password for the user account you specified for the username. | No |
 | gatewayName | Name of the gateway that the Data Factory service should use to connect to the on-premises DB2 database. | Yes |
 
-See [Setting Credentials and Security](data-factory-move-data-between-onprem-and-cloud.md#setting-credentials-and-security) for details about setting credentials for an on-premises DB2 data source. 
+See [Setting Credentials and Security](data-factory-move-data-between-onprem-and-cloud.md#set-credentials-and-security) for details about setting credentials for an on-premises DB2 data source. 
 
 
-## DB2 Dataset type properties
+## DB2 dataset type properties
 
 For a full list of sections & properties available for defining datasets, see the [Creating datasets](data-factory-create-datasets.md) article. Sections like structure, availability, and policy of a dataset JSON are similar for all dataset types (Azure SQL, Azure blob, Azure table, etc...).
 
@@ -235,9 +240,9 @@ The typeProperties section is different for each type of dataset and provides in
 
 | Property | Description | Required |
 | -------- | ----------- | -------- | 
-| tableName | Name of the table in the DB2 Database instance that linked service refers to. | No (if **query** of **RelationalSource** is specified) |
+| tableName | Name of the table in the DB2 Database instance that linked service refers to. The tableName is case sensitive. | No (if **query** of **RelationalSource** is specified) |
 
-## DB2 Copy Activity type properties
+## DB2 copy activity type properties
 
 For a full list of sections & properties available for defining activities please see the [Creating Pipelines](data-factory-create-pipelines.md) article. Properties like name, description, input and output tables, various policies etc. are available for all types of activities. 
 
@@ -248,7 +253,14 @@ In case of Copy Activity when source is of type **RelationalSource** (which incl
 
 | Property | Description | Allowed values | Required |
 | -------- | ----------- | -------- | -------------- |
-| query | Use the custom query to read data. | SQL query string. For example: select * from MyTable. | No (if **tableName** of **dataset** is specified)|
+| query | Use the custom query to read data. | SQL query string. For example: "query": "select * from \"MySchema\".\"MyTable\"". | No (if **tableName** of **dataset** is specified)|
+
+> [AZURE.NOTE] Schema and table names are case sensitive and they have to enclosed in "" (double quotes) in the query.  
+
+**Example:**
+
+ "query": "select * from \"DB2ADMIN\".\"Customers\""
+
 
 [AZURE.INCLUDE [data-factory-structure-for-rectangualr-datasets](../../includes/data-factory-structure-for-rectangualr-datasets.md)]
 
@@ -309,6 +321,7 @@ Char | String
 
 [AZURE.INCLUDE [data-factory-type-repeatability-for-relational-sources](../../includes/data-factory-type-repeatability-for-relational-sources.md)]
 
-
+## Performance and Tuning  
+See [Copy Activity Performance & Tuning Guide](data-factory-copy-activity-performance.md) to learn about key factors that impact performance of data movement (Copy Activity) in Azure Data Factory and various ways to optimize it.
 
 

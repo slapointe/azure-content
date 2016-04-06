@@ -13,17 +13,16 @@
    ms.topic="get-started-article"
    ms.tgt_pltfrm="na"
    ms.workload="infrastructure-services"
-   ms.date="09/22/2015"
+   ms.date="01/20/2016"
    ms.author="joaoma"/>
 
 
 # Create DNS records using CLI
 
 > [AZURE.SELECTOR]
-- [Azure CLI](dns-getstarted-create-recordset-cli.md)
+- [Azure Portal](dns-getstarted-create-recordset-portal.md)
 - [PowerShell](dns-getstarted-create-recordset.md)
-
-
+- [Azure CLI](dns-getstarted-create-recordset-cli.md)
 
 After creating your DNS Zone, you need to add the DNS records for your domain.  To do this, you first need to understand DNS records and record sets.
 

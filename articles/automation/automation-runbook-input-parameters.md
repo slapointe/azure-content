@@ -75,7 +75,7 @@ To [configure a graphical runbook](automation-first-runbook-graphical.md) with i
 
 [**Get-AzureVM**](https://msdn.microsoft.com/library/azure/dn495236.aspx) to get all the virtual machines.
 
-You can use the [**Write-Output**](https://technet.microsoft.com/library/hh849921.aspx) activity to output the names of virtual machines. The activity **Get-AzureVM** will accept two parameters, the **virtual machine name** and the **service account name**. Since these parameters could require different values each time you start the runbook, you can add input parameters to your runbook. Here are the steps to add input parameters:
+You can use the [**Write-Output**](https://technet.microsoft.com/library/hh849921.aspx) activity to output the names of virtual machines. The activity **Get-AzureVM** will accept two parameters, the **virtual machine name** and the **service name**. Since these parameters could require different values each time you start the runbook, you can add input parameters to your runbook. Here are the steps to add input parameters:
 
 1. Select the graphical runbook from the **Runbooks** blade and [edit](automation-graphical-authoring-intro.md) it.
 
@@ -104,7 +104,7 @@ You can use the [**Write-Output**](https://technet.microsoft.com/library/hh84992
     Mandatory--No
 
     * **Parameter2:**
-    Name--VMNameServiceName,
+    Name--ServiceName,
     Type--String,
     Mandatory--No,
     Default value--Custom,
@@ -122,7 +122,7 @@ A runbook can be started many ways: through the Azure portal UI, with a webhook,
 
 - **Start a published runbook by using the Azure portal and assign parameters**
 
-When you [start the runbook](automation-starting-a-runbook#starting-a-runbook-with-the-azure-portal.md), the **Start Runbook** blade opens and you can configure values for the parameters that you just created.
+When you [start the runbook](automation-starting-a-runbook.md#starting-a-runbook-with-the-azure-portal), the **Start Runbook** blade opens and you can configure values for the parameters that you just created.
 
 ![Start using the portal](media/automation-runbook-input-parameters/automation_04_StartRunbookUsingPortal.png)
 
@@ -145,7 +145,7 @@ In the label beneath the input box, you can see the attributes that have been se
         Start-AzureAutomationRunbook -AutomationAccountName “TestAutomation” -Name “Get-AzureVMGraphical” -Parameters $params
       ```
 
-    - **Azure Resource Manager cmdlets:** You can start an Automation runbook that was created in a resource group by using [Start-AzureRMAutomationRunbook](https://msdn.microsoft.com/library/mt603661.aspx).
+    - **Azure Resource Manager cmdlets:** You can start an Automation runbook that was created in a resource group by using [Start-AzureRmAutomationRunbook](https://msdn.microsoft.com/library/mt603661.aspx).
 
 
     **Example:**  
@@ -153,7 +153,7 @@ In the label beneath the input box, you can see the attributes that have been se
       ```
         $params = @{“VMName”=”WSVMClassic”;”ServiceName”=”WSVMClassicSG”}
 
-        Start-AzureRMAutomationRunbook -AutomationAccountName “TestAutomationRG” -Name “Get-AzureVMGraphical” –ResourceGroupName “RG1” -Parameters $params
+        Start-AzureRmAutomationRunbook -AutomationAccountName “TestAutomationRG” -Name “Get-AzureVMGraphical” –ResourceGroupName “RG1” -Parameters $params
       ```
 
 >[AZURE.NOTE] When you start a runbook by using PowerShell cmdlets, a default parameter, **MicrosoftApplicationManagementStartedBy**, is created with the value **PowerShell**. You can view this parameter in the **Job details** blade.
@@ -224,7 +224,7 @@ In the request URI, replace the following parameters:
 * **subscription-id:** Your Azure subscription ID.  
 * **cloud-service-name:** The name of the cloud service to which the request should be sent.  
 * **automation-account-name:** The name of your automation account that's hosted within the specified cloud service.  
-* **job-id:** The GUID for the job. GUIDs in PowerShell can be created by using the **[GUID]::NewGuid().ToString()** cmdlet.
+* **job-id:** The GUID for the job. GUIDs in PowerShell can be created by using the **[GUID]::NewGuid().ToString()** command.
 
 In order to pass parameters to the runbook job, use the request body. It takes the following two properties provided in JSON format:
 

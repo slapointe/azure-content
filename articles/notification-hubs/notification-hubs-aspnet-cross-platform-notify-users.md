@@ -1,5 +1,6 @@
 <properties
-	pageTitle="Send cross-platform notifications to users with Notification Hubs (ASP.NET)" description="Learn how to use Notification Hubs templates to send, in a single request, a platform-agnostic notification that targets all platforms."
+	pageTitle="Send cross-platform notifications to users with Notification Hubs (ASP.NET)"
+	description="Learn how to use Notification Hubs templates to send, in a single request, a platform-agnostic notification that targets all platforms."
 	services="notification-hubs"
 	documentationCenter=""
 	authors="wesmc7777"
@@ -12,7 +13,7 @@
 	ms.tgt_pltfrm="mobile-windows"
 	ms.devlang="multiple"
 	ms.topic="article"
-	ms.date="12/11/2015" 
+	ms.date="03/28/2016" 
 	ms.author="wesmc"/>
 
 # Send cross-platform notifications to users with Notification Hubs

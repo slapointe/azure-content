@@ -31,7 +31,7 @@ Source IP affinity solves a previous [incompatibility between the Azure Load Bal
 
 Source IP Affinity can be configured for:
 
-* [Virtual machine endpoints](../virtual-machines/virtual-machines-set-up-endpoints.md)
+* [Virtual machine endpoints](../virtual-machines/virtual-machines-windows-classic-setup-endpoints.md)
 * [Load-balanced endpoint sets](../load-balancer/load-balancer-overview.md)
 * [Web roles](http://msdn.microsoft.com/library/windowsazure/ee758711.aspx)
 * [Worker roles](http://msdn.microsoft.com/library/windowsazure/ee758711.aspx)
@@ -88,7 +88,7 @@ If the LoadBalancerDistribution element is not present then the Azure Load balan
 
     Set-AzureLoadBalancedEndpoint -ServiceName "MyService" -LBSetName "LBSet1" -Protocol tcp -LocalPort 80 -ProbeProtocolTCP -ProbePort 8080 –LoadBalancerDistribution "sourceIP"
 
-    Set-AzureLoadBalancedEndpoint -ServiceName "MyService" -LBSetName "LBSet1" -Protocol tcp -LocalPort 80 -ProbeProtocolTCP -ProbePort 8080 â€“LoadBalancerDistribution "sourceIP"
+    Set-AzureLoadBalancedEndpoint -ServiceName "MyService" -LBSetName "LBSet1" -Protocol tcp -LocalPort 80 -ProbeProtocolTCP -ProbePort 8080 LoadBalancerDistribution "sourceIP"
 
 If endpoints are part of a load balanced endpoint set, the distribution mode must be set on the load balanced endpoint set.
 

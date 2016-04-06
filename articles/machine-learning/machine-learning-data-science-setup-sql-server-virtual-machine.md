@@ -13,7 +13,7 @@
 	ms.tgt_pltfrm="na"
 	ms.devlang="na"
 	ms.topic="article"
-	ms.date="10/13/2015"
+	ms.date="02/08/2016"
 	ms.author="mohabib;xibingao;bradsev" />
 
 # Set up an Azure SQL Server virtual machine as an IPython Notebook server for advanced analytics
@@ -32,7 +32,7 @@ The Azure virtual machine gallery includes several images that contain Microsoft
 
 1.  Log in to the [Azure Classic Portal](http://manage.windowsazure.com/) using your account.
 	If you do not have an Azure account, visit [Azure free
-    trial](http://www.windowsazure.com/pricing/free-trial/).
+    trial](https://azure.microsoft.com/pricing/free-trial/).
 
 2.  On the Azure Classic Portal, at the bottom left of the web page,
     click **+NEW**, click **COMPUTE**, click **VIRTUAL MACHINE**, and
@@ -68,7 +68,7 @@ The Azure virtual machine gallery includes several images that contain Microsoft
     information on available virtual machine sizes and the number of
     data disks that you can attach to a virtual machine, see [Virtual
     Machine Sizes for
-    Azure](http://msdn.microsoft.com/library/azure/dn197896.aspx). For pricing information, see [VIrtual Macines Pricing](http://azure.microsoft.com/pricing/details/virtual-machines/).
+    Azure](http://msdn.microsoft.com/library/azure/dn197896.aspx). For pricing information, see [VIrtual Macines Pricing](https://azure.microsoft.com/pricing/details/virtual-machines/).
 
     Click the next arrow on the bottom right to continue.
 
@@ -173,7 +173,7 @@ If your VM image does not include data disks, i.e., disks other than C drive (OS
 
  > [AZURE.NOTE] Do not use the D drive to store data. As the name implies, it provides temporary storage only. It offers no redundancy or backup because it doesn't reside in Azure storage.
 
-To attach additional data disks, follow the steps described in [How to Attach a Data Disk to a Windows Virtual Machine](storage-windows-attach-disk.md), which will guide you through:
+To attach additional data disks, follow the steps described in [How to Attach a Data Disk to a Windows Virtual Machine](virtual-machines-windows-classic-attach-disk.md), which will guide you through:
 
 1. Attaching empty disk(s) to the virtual machine provisioned in earlier steps
 2. Initialization of the new disk(s) in the virtual machine
@@ -391,7 +391,7 @@ The virtual machine will be deallocated but not deleted. You may restart your vi
 
 Your virtual machine is now ready to use in your data science exercises. The virtual machine is also ready for use as an IPython Notebook server for the exploration and processing of data, and other tasks in conjunction with Azure Machine Learning and the Cortana Analytics Process (CAP).
 
-The next steps in the data science process are mapped in the [Learning Guide: Advanced data processing in Azure](machine-learning-data-science-advanced-data-processing.md) and may include steps that move data into HDInsight, process and sample it there in preparation for learning from the data with Azure Machine Learning.
+The next steps in the data science process are mapped in the [Learning Guide: Advanced data processing in Azure](https://azure.microsoft.com/documentation/learning-paths/cortana-analytics-process/) and may include steps that move data into HDInsight, process and sample it there in preparation for learning from the data with Azure Machine Learning.
 
 
 [1]: ./media/machine-learning-data-science-setup-sql-server-virtual-machine/selectsqlvmimg.png
