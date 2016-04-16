@@ -293,7 +293,7 @@ Configure an HTTP endpoint in PackageRoot\ServiceManifest.xml:
 
 <Resources>
     <Endpoints>
-        <Endpoint Name="ServiceEndpoint" Type="Input" Protocol="http" Port="8281" />
+        <Endpoint Name="ServiceEndpoint" Type="Input" Protocol="http" Port="8192" />
     </Endpoints>
 </Resources>
 
